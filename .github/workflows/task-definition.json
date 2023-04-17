@@ -3,7 +3,7 @@
     "containerDefinitions": [
         {
             "name": "hello-world",
-            "image": "593564019103.dkr.ecr.us-east-1.amazonaws.com/docker_hello_world",
+            "image": "593564019103.dkr.ecr.us-east-1.amazonaws.com/docker_hello_world:latest",
             "cpu": 0,
             "portMappings": [
                 {

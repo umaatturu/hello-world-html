@@ -1,5 +1,5 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:us-east-1:593564019103:task-definition/demo-deploy:1",
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:593564019103:task-definition/demo-deploy:2",
     "containerDefinitions": [
         {
             "name": "hello-world",
@@ -33,7 +33,7 @@
     "family": "demo-deploy",
     "executionRoleArn": "arn:aws:iam::593564019103:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 1,
+    "revision": 2,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
@@ -82,7 +82,7 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2023-04-13T11:42:32.367Z",
+    "registeredAt": "2023-04-17T09:43:50.833Z",
     "registeredBy": "arn:aws:iam::593564019103:root",
     "tags": []
-} 
+}

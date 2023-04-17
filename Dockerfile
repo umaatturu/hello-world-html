@@ -1,9 +1,4 @@
-FROM ubuntu
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update
-RUN apt-get install apache2 -y
-RUN apt-get install apache2-utils -y
-RUN apt-get clean
-EXPOSE 80
-RUN echo "Hello From Server" > /var/www/html/index.html
-CMD ["apache2ctl","-D","FOREGROUND"]
+# Use an official Nginx runtime as a parent image
+FROM nginx:alpine
+# Copy the HTML file from the current directory to the container's "/usr/share/nginx/html" directory
+COPY index.html /usr/share/nginx/html

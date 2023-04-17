@@ -1,13 +1,13 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:us-east-1:593564019103:task-definition/demo-deploy:4",
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:593564019103:task-definition/demo-cluster:1",
     "containerDefinitions": [
         {
-            "name": "demo-deploy",
-            "image": "docker_hello_world-593564019103.dkr.ecr.us-east-1.amazonaws.com/docker_hello_world/demodeploy:v1",
+            "name": "demo-cluster",
+            "image": "593564019103.dkr.ecr.us-east-1.amazonaws.com/docker_hello_world:latest",
             "cpu": 0,
             "portMappings": [
                 {
-                    "name": "demo-deploy-80-tcp",
+                    "name": "demo-cluster-80-tcp",
                     "containerPort": 80,
                     "hostPort": 80,
                     "protocol": "tcp",
@@ -23,17 +23,17 @@
                 "logDriver": "awslogs",
                 "options": {
                     "awslogs-create-group": "true",
-                    "awslogs-group": "/ecs/demo-deploy",
+                    "awslogs-group": "/ecs/demo-cluster",
                     "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
                 }
             }
         }
     ],
-    "family": "demo-deploy",
+    "family": "demo-cluster",
     "executionRoleArn": "arn:aws:iam::593564019103:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 4,
+    "revision": 1,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
@@ -76,7 +76,7 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2023-04-17T10:36:15.511Z",
+    "registeredAt": "2023-04-17T11:58:23.197Z",
     "registeredBy": "arn:aws:iam::593564019103:root",
     "tags": []
 }

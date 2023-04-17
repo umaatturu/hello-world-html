@@ -1,9 +1,9 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:us-east-1:593564019103:task-definition/demo-deploy:3",
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:593564019103:task-definition/demo-deploy:4",
     "containerDefinitions": [
         {
             "name": "demo-deploy",
-            "image": "593564019103.dkr.ecr.us-east-1.amazonaws.com/docker_hello_world",
+            "image": "docker_hello_world-593564019103.dkr.ecr.us-east-1.amazonaws.com/docker_hello_world/demodeploy:v1",
             "cpu": 0,
             "portMappings": [
                 {
@@ -33,7 +33,7 @@
     "family": "demo-deploy",
     "executionRoleArn": "arn:aws:iam::593564019103:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 3,
+    "revision": 4,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
@@ -76,7 +76,7 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2023-04-17T10:09:49.687Z",
+    "registeredAt": "2023-04-17T10:36:15.511Z",
     "registeredBy": "arn:aws:iam::593564019103:root",
     "tags": []
 }

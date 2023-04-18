@@ -1,38 +1,41 @@
-name: Deploy to Amazon ECS
-
 on:
   push:
     branches:
-      - "master"
+      - master
 
-env:
-  AWS_REGION: us-east-1                  # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: docker_hello_world         # set this to your Amazon ECR repository name
-  ECS_SERVICE: demo-cluster               # set this to your Amazon ECS service name
-  ECS_CLUSTER: demo-cluster                 # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: .github/workflows/task-definition.json      # set this to the path to your Amazon ECS task definition                                           # file, e.g. .aws/task-definition.json
-  CONTAINER_NAME: demo-cluster           # set this to the name of the container in the
-                                               # containerDefinitions section of your task definition
-
-permissions:
-  id-token: write
-  contents: read # This is required for actions/checkout@v2
+name: Deploy to Amazon ECS
 
 jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    environment: production
 
     steps:
+    - name: Check commit status
+      id: commit-status
+      run: |
+        # Check the status of the Git commit
+        CURRENT_STATUS=$(curl --url https://api.github.com/repos/${{ github.repository }}/commits/${{ github.sha }}/status --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' | jq -r '.state');
+        echo "Current status is: $CURRENT_STATUS"
+        while [ "${CURRENT_STATUS^^}" = "PENDING" ]; 
+          do sleep 10; 
+          CURRENT_STATUS=$(curl --url https://api.github.com/repos/${{ github.repository }}/commits/${{ github.sha }}/status --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' | jq -r '.state');
+        done;
+        echo "Current status is: $CURRENT_STATUS"
+        if [ "${CURRENT_STATUS^^}" = "FAILURE" ]; 
+          then echo "Commit status failed. Canceling execution"; 
+          exit 1; 
+        fi
+        
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v1
+
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        role-to-assume: arn:aws:iam::593564019103:role/ecr-ecsfullfullaccess # Update the ARN of the IAM role
-        role-session-name: Github
-        aws-region: ${{ env.AWS_REGION }}
+        aws-access-key-id: AKIAYUMZMFGP2SGFC464
+        aws-secret-access-key: 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
+        aws-region: us-east-1
 
     - name: Login to Amazon ECR
       id: login-ecr
@@ -42,6 +45,7 @@ jobs:
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: docker_hello_world
         IMAGE_TAG: ${{ github.sha }}
       run: |
         # Build a docker container and
@@ -50,18 +54,19 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+        
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
-        task-definition: ${{ env.ECS_TASK_DEFINITION }}
-        container-name: ${{ env.CONTAINER_NAME }}
+        task-definition: task-definition.json
+        container-name: demo-cluster
         image: ${{ steps.build-image.outputs.image }}
 
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
-        service: ${{ env.ECS_SERVICE }}
-        cluster: ${{ env.ECS_CLUSTER }}
+        service: demo-cluster
+        cluster: demo-cluster
         wait-for-service-stability: true

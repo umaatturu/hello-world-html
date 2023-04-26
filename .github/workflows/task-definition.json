@@ -1,9 +1,9 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:us-east-1:593564019103:task-definition/myapp-task:1",
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:593564019103:task-definition/myapp-task:3",
     "containerDefinitions": [
         {
             "name": "myapp-task",
-            "image": "593564019103.dkr.ecr.us-east-1.amazonaws.com/demo_hell0",
+            "image": "593564019103.dkr.ecr.us-east-1.amazonaws.com/demo_hell0:447ece719afaf979f92a0d88a15d2cf4ad638c04",
             "cpu": 0,
             "portMappings": [
                 {
@@ -16,10 +16,8 @@
             ],
             "essential": true,
             "environment": [],
-            "environmentFiles": [],
             "mountPoints": [],
             "volumesFrom": [],
-            "ulimits": [],
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
@@ -34,7 +32,7 @@
     "family": "myapp-task",
     "executionRoleArn": "arn:aws:iam::593564019103:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 1,
+    "revision": 3,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
@@ -77,7 +75,7 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2023-04-26T11:18:14.855Z",
-    "registeredBy": "arn:aws:iam::593564019103:root",
+    "registeredAt": "2023-04-26T11:31:17.626Z",
+    "registeredBy": "arn:aws:iam::593564019103:user/umaa",
     "tags": []
 }

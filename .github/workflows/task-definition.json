@@ -1,9 +1,9 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:us-east-1:593564019103:task-definition/demo-cluster:1",
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:593564019103:task-definition/demo-cluster:5",
     "containerDefinitions": [
         {
             "name": "demo-cluster",
-            "image": "593564019103.dkr.ecr.us-east-1.amazonaws.com/docker_hello_world:latest",
+            "image": "593564019103.dkr.ecr.us-east-1.amazonaws.com/docker_hello_world:ae34789650c6f83f8a6b0f6780452e5357632639",
             "cpu": 0,
             "portMappings": [
                 {
@@ -16,7 +16,6 @@
             ],
             "essential": true,
             "environment": [],
-            "environmentFiles": [],
             "mountPoints": [],
             "volumesFrom": [],
             "logConfiguration": {
@@ -33,7 +32,7 @@
     "family": "demo-cluster",
     "executionRoleArn": "arn:aws:iam::593564019103:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 1,
+    "revision": 5,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
@@ -76,7 +75,7 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2023-04-17T11:58:23.197Z",
-    "registeredBy": "arn:aws:iam::593564019103:root",
+    "registeredAt": "2023-04-26T10:21:16.024Z",
+    "registeredBy": "arn:aws:iam::593564019103:user/umaa",
     "tags": []
 }
